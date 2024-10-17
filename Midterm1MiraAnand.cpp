@@ -267,16 +267,27 @@ public:
     }
 
     // void every_other_element() function header
-    // DESCRIPTION:
-    // ARGUMENTS:
-    // RETURNS:
+    // DESCRIPTION: this function will output every other element of the linked list
+    // - if there are no contents, the user will be notified that the list is empty
+    // ARGUMENTS: no arguments/parameters
+    // RETURNS: nothing, void function
     void every_other_element() { // adding a new class method
         Node* current = head; // set current to head
         int position = 0; // to keep a track of the position of the element
         
-                if (!current) { // if current is equal to nullptr, list is empty
+        if (!current) { // if current is equal to nullptr, list is empty
             cout << "List is empty." << endl;
             return; // exit the function, nothing to print
+        }
+
+        while (current) { // as long as current is not nullptr
+            if (position % 2 == 0) // outputs element if the position # is even
+                cout << current->data << " ";
+
+            current = current->next; // move to next node
+            position++; // update position
+        }
+        cout << endl;
     }
 };
 
