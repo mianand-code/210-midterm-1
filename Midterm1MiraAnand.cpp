@@ -64,50 +64,62 @@ public:
         }
 
         // code block handles insertion at middle or end of list
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
+        newNode->next = temp->next; // newNode next should be set to temp's next
+        newNode->prev = temp; // newNode previous should be set to temp
+        if (temp->next) // if a node exists after temp
             temp->next->prev = newNode;
         else
-            tail = newNode;
-        temp->next = newNode;
+            tail = newNode; 
+        temp->next = newNode; 
     }
 
+    // void delete_val(int value) function header
+    // DESCRIPTION: this function will traverse the list to find a value to delete and then delete that value from the list
+    // - deletion will not be performed if the linked list is empty. Function performs a check for that
+    // - deletion will also not be performed if the value was not found in the list
+    // ARGUMENTS: int value, which is the number to be added to the list
+    // RETURNS: nothing, void function
     void delete_val(int value) {
-        if (!head) return;
+        if (!head) return; // if head is equal to nullptr, the list is empty. Exit the function, no value to delete
 
-        Node* temp = head;
+        Node* temp = head; // set temp to head
         
-        while (temp && temp->data != value)
-            temp = temp->next;
+        while (temp && temp->data != value) // traverse list to find value to be deleted
+            temp = temp->next; // set temp to next node until we find the value to delete
 
-        if (!temp) return; 
+        if (!temp) return; // if temp hits nullptr, the value was not found. Exit the function, nothing to delete
 
         if (temp->prev)
             temp->prev->next = temp->next;
         else
-            head = temp->next; 
+            head = temp->next; // deleting the head
 
         if (temp->next)
             temp->next->prev = temp->prev;
         else
-            tail = temp->prev; 
+            tail = temp->prev; // deleting the tail
 
-        delete temp;
+        delete temp; // delete the value from the list
     }
 
+    // void delete_pos(int position) function header
+    // DESCRIPTION: this function will traverse the list to find the position (index) of a value to delete and then delete that value from the list
+    // - deletion will not be performed if the linked list is empty. Function performs a check for that
+    // - deletion will also not be performed if the position is not within the bounds of the linked list
+    // ARGUMENTS: int position, which is the position/index of the value to be deleted from the list
+    // RETURNS: nothing, void function
     void delete_pos(int pos) {
-        if (!head) {
+        if (!head) { // if head is equal to nullptr, the list is empty
             cout << "List is empty." << endl;
-            return;
+            return; // exit the function, no deletion can be performed
         }
     
-        if (pos == 1) {
+        if (pos == 1) { // if position is equal to 1 (head)
             pop_front();
             return;
         }
     
-        Node* temp = head;
+        Node* temp = head; // set temp to head
     
         for (int i = 1; i < pos; i++){
             if (!temp) {
