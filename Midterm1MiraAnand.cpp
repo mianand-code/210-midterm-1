@@ -102,11 +102,11 @@ public:
         delete temp; // delete the value from the list
     }
 
-    // void delete_pos(int position) function header
+    // void delete_pos(int pos) function header
     // DESCRIPTION: this function will traverse the list to find the position (index) of a value to delete and then delete that value from the list
     // - deletion will not be performed if the linked list is empty. Function performs a check for that
     // - deletion will also not be performed if the position is not within the bounds of the linked list
-    // ARGUMENTS: int position, which is the position/index of the value to be deleted from the list
+    // ARGUMENTS: int pos, which is the position/index of the value to be deleted from the list
     // RETURNS: nothing, void function
     void delete_pos(int pos) {
         if (!head) { // if head is equal to nullptr, the list is empty
@@ -115,66 +115,80 @@ public:
         }
     
         if (pos == 1) { // if position is equal to 1 (head)
-            pop_front();
-            return;
+            pop_front(); // pop_front() function call, deletes the head node
+            return; // exit the function
         }
     
         Node* temp = head; // set temp to head
     
-        for (int i = 1; i < pos; i++){
-            if (!temp) {
-                cout << "Position doesn't exist." << endl;
-                return;
+        for (int i = 1; i < pos; i++){ // traverse list to find the position of the value to be deleted
+            if (!temp) { // if temp hits nullptr
+                cout << "Position doesn't exist." << endl; // the position was not found
+                return; // exit the function
             }
             else
-                temp = temp->next;
+                temp = temp->next; // set temp to next node until we find the position
         }
-        if (!temp) {
-            cout << "Position doesn't exist." << endl;
-            return;
-        }
-    
-        if (!temp->next) {
-            pop_back();
-            return;
+        if (!temp) { // perform another check to see if temp is equal to nullptr
+            cout << "Position doesn't exist." << endl; // the position does not exist
+            return; // exit the function
         }
     
+        if (!temp->next) { // if the node we want to delete is the last node (tail)
+            pop_back(); // pop_back() function call, deletes the tail node
+            return; // exit the function
+        }
+    
+        // code blocks deletes a node that is not located at the head or tail
         Node* tempPrev = temp->prev;
         tempPrev->next = temp->next;
         temp->next->prev = tempPrev;
-        delete temp;
+        delete temp; // delete the value from the list
     }
 
+    // void push_back(int v) function header
+    // DESCRIPTION: this function will create a new node, set the value of the new node, and add this new node to the end (tail) of the list
+    // ARGUMENTS: int v, which is the number to be added to the list
+    // RETURNS: nothing, void function
     void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
+        Node* newNode = new Node(v); // create a new node and set its value
+        if (!tail) // if there's no tail, the list is empty
             head = tail = newNode;
-        else {
+        else { // if the list is NOT empty
             tail->next = newNode;
             newNode->prev = tail;
             tail = newNode;
         }
     }
     
+    // void push_front(int v) function header
+    // DESCRIPTION: this function will create a new node, set the value of the new node, and add this new node to the front (head) of the list
+    // ARGUMENTS: int v, which is the number to be added to the list
+    // RETURNS: nothing, void function
     void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
+        Node* newNode = new Node(v); // create a new node and set its value
+        if (!head) // if there's no head, the list is empty
             head = tail = newNode;
-        else {
+        else { // if the list is NOT empty
             newNode->next = head;
             head->prev = newNode;
             head = newNode;
         }
     }
     
+    // void pop_front() function header
+    // DESCRIPTION: this function will delete the head node from the linked list
+    // - deletion will not be performed if the linked list is empty. Function performs a check for that
+    // ARGUMENTS: no arguments/parameters
+    // RETURNS: nothing, void function
     void pop_front() {
 
-        if (!head) {
+        if (!head) { // if head is equal to nullptr, the list is empty
             cout << "List is empty." << endl;
-            return;
+            return; // exit the function, head deletion cannot be performed
         }
 
-        Node * temp = head;
+        Node * temp = head; // set temp to head
 
         if (head->next) {
             head = head->next;
@@ -182,9 +196,14 @@ public:
         }
         else
             head = tail = nullptr;
-        delete temp;
+        delete temp; // delete head node
     }
 
+    // void pop_back() function header
+    // DESCRIPTION: this function will delete the tail node from the linked list
+    // - deletion will not be performed if the linked list is empty. Function performs a check for that
+    // ARGUMENTS: no arguments/parameters
+    // RETURNS: nothing, void function
     void pop_back() {
         if (!tail) {
             cout << "List is empty." << endl;
