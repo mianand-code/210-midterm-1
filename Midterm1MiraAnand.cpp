@@ -205,11 +205,11 @@ public:
     // ARGUMENTS: no arguments/parameters
     // RETURNS: nothing, void function
     void pop_back() {
-        if (!tail) {
+        if (!tail) { // if tail is equal to nullptr, the list is empty
             cout << "List is empty." << endl;
-            return;
+            return; // exit the function, tail deletion cannot be performed
         }
-        Node * temp = tail;
+        Node * temp = tail; // set temp to tail
 
         if (tail->prev) {
             tail = tail->prev;
@@ -217,40 +217,66 @@ public:
         }
         else
             head = tail = nullptr;
-        delete temp;
+        delete temp; // delete tail node
     }
 
+    // class destructor, to delete all nodes
+    // do not need to call it in main(), since it is automatically called when an object goes out of scope
     ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+        while (head) { // traverse list, while head does not hit nullptr
+            Node* temp = head; // set temp to head
+            head = head->next; // set head to the node after the one to be deleted
+            delete temp; // perform deletion
         }
     }
+    
+    // void print() function header
+    // DESCRIPTION: this function will output the contents of the linked list to the console
+    // - if there are no contents, the user will be notified with a console message
+    // ARGUMENTS: no arguments/parameters
+    // RETURNS: nothing, void function
     void print() {
-        Node* current = head;
-        if (!current) {
+        Node* current = head; // set current to head, to start at the beginning of the list
+        if (!current) { // if current is equal to nullptr, list is empty
             cout << "List is empty." << endl;
-            return;
+            return; // exit the function, nothing to print
         }
-        while (current) {
+        while (current) { // traverse the list and display its contents, while current is NOT equal to nullptr
             cout << current->data << " ";
-            current = current->next;
+            current = current->next; // progress to next node
         }
         cout << endl;
     }
 
+    // void print_reverse() function header
+    // DESCRIPTION: this function will output the contents of the linked list to the console IN REVERSE
+    // - if there are no contents, the user will be notified with a console message
+    // ARGUMENTS: no arguments/parameters
+    // RETURNS: nothing, void function
     void print_reverse() {
-        Node* current = tail;
-        if (!current) { 
+        Node* current = tail; // set current to tail, to start at the end of the list
+        if (!current) { // if current is equal to nullptr, list is empty
             cout << "List is empty." << endl;
-            return;
+            return; // exit the function, nothing to print
         }
-        while (current) {
+        while (current) { // traverse the list and display its contents, while current is NOT equal to nullptr
             cout << current->data << " ";
-            current = current->prev;
+            current = current->prev; // progress to previous node, to print in reverse
         }
         cout << endl;
+    }
+
+    // void every_other_element() function header
+    // DESCRIPTION:
+    // ARGUMENTS:
+    // RETURNS:
+    void every_other_element() { // adding a new class method
+        Node* current = head; // set current to head
+        int position = 0; // to keep a track of the position of the element
+        
+                if (!current) { // if current is equal to nullptr, list is empty
+            cout << "List is empty." << endl;
+            return; // exit the function, nothing to print
     }
 };
 
