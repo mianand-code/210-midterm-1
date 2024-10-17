@@ -2,6 +2,8 @@
 // Module 8 - Midterm Exam
 // IDE used: Visual Studio Code for Mac
 
+#include <cstdlib> // needed to generate a random number
+#include <ctime> // needed to generate a random number
 #include <iostream>
 using namespace std;
 
@@ -292,8 +294,25 @@ public:
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    
+    srand(time(0)); // needed as the first line in main() for randomization
+    
+    DoublyLinkedList list; // creation of a DoublyLinkedList object
 
+    // declaration and initialization of a int variable "size", that will generate a random # between 5 - 20
+    // this will be the number of values being added to the linked list
+    int size = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;
+
+    for (int i = 0; i < size; ++i) // loop that continues until it hits "size"
+        // push_back() function call, adds random values between 10 - 99 to the end of the linked list
+        list.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
+    
+    cout << "Here is the complete linked list that was generated: ";
+    list.print(); // print() function call, will print the contents of the linked list in original order
+    cout << endl;
+
+    cout << "Here is the updated linked list (only shows every other element): ";
+    list.every_other_element(); // every_other_element() function call
     
     return 0;
 }
