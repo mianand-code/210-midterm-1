@@ -5,49 +5,65 @@
 #include <iostream>
 using namespace std;
 
+// declaration and initialization of const int variables
+// the values being added to the linked list should be between 10 - 99 (MIN_NR, MAX_NR)
+// the # of values being added to the linked list should be between 5 - 20 (MIN_LS, MAX_LS)
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
+// creation of DoublyLinkedList Class
 class DoublyLinkedList {
+// private member variables
 private:
-    struct Node {
-        int data;
-        Node* prev;
-        Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
+    struct Node { // struct definition within class
+        int data; // holds a int value
+        Node* prev; // pointer to previous node
+        Node* next; // pointer to next node
+        Node(int val, Node* p = nullptr, Node* n = nullptr) { // constructor within struct
             data = val; 
             prev = p;
             next = n;
         }
     };
 
+    // pointers to head and tail
     Node* head;
     Node* tail;
 
+// public member functions
 public:
+    // constructor that initializes the head and tail pointers
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
+    // void insert_after(int value, int position) function header
+    // DESCRIPTION: this function will create a new node, set the value of the new node, and add this new node to a certain position within the linked list
+    // - the function ensures that the position is valid before proceeding with deletion
+    // ARGUMENTS: int value, which is the number to be added to the list
+    // - int position, which represents the position/index where the value should be added
+    // RETURNS: nothing, void function
     void insert_after(int value, int position) {
+        // ensures that position is greater than or equal to 0 before proceeding
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
-            return;
+            return; // exit the function
         }
 
-        Node* newNode = new Node(value);
-        if (!head) {
-            head = tail = newNode;
-            return;
+        Node* newNode = new Node(value); // create a new node and set its value
+        if (!head) { // if head is nullptr, the list is empty
+            head = tail = newNode; // head and tail should be set to newNode in this case
+            return; // exit the function
         }
 
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
-            temp = temp->next;
+        Node* temp = head; // set temp to head
+        for (int i = 0; i < position && temp; ++i) // traverse list to find the position where insertion should be performed
+            temp = temp->next; // set temp to next node until we find the position to insert
 
-        if (!temp) {
+        if (!temp) { // if temp hits nullptr
             cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
-            return;
+            delete newNode; // free newNode
+            return; // exit the function
         }
 
+        // code block handles insertion at middle or end of list
         newNode->next = temp->next;
         newNode->prev = temp;
         if (temp->next)
